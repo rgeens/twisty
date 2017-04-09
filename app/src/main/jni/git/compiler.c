@@ -577,3 +577,17 @@ extern git_uint32 undoEmit ()
 {
     return *--sCodeTop;
 }
+
+void git_compiler_c_shutdown()
+{
+  sBufferSize = 0;
+  // How to deal with sJumpBuf?
+
+  // Memory leak
+  sPatch = 0;
+
+  sNextInstructionIsReferenced = 0;
+  sLastAddr = 0;
+
+  // Skipped dummyHeader
+}

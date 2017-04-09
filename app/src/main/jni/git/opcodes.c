@@ -3,6 +3,8 @@
 #include "git.h"
 #include "opcodes.h"
 
+static int clear_ops = 0;
+
 static void parseModeNibbles (git_uint32* pc, int numModes, int * modeBuffer)
 {
     int * mode = modeBuffer;
@@ -180,6 +182,13 @@ void parseInstruction (git_uint32* pc, int * done)
     git_uint32 opcode;
     
     static int ops = 0;
+
+    if(clear_ops)
+    {
+        ops = 0;
+        clear_ops = 0;
+    }
+
     ++ops;
     
     // Fetch the opcode.
@@ -505,4 +514,10 @@ void parseInstruction (git_uint32* pc, int * done)
             abortCompilation();
             break;
     }
+}
+
+void git_opcodes_c_shutdown()
+{
+  clear_ops = 1;
+  // ops
 }

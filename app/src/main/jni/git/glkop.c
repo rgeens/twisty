@@ -113,6 +113,8 @@
 #include "git.h"
 #include "gi_dispa.h"
 
+static int clear_garglist = 0;
+
 static char * DecodeVMString (git_uint32 addr)
 {
     glui32 end;
@@ -477,6 +479,14 @@ static void prepare_glk_args(char *proto, dispatch_splot_t *splot)
 {
   static gluniversal_t *garglist = NULL;
   static int garglist_size = 0;
+
+  if(clear_garglist)
+  {
+    // Memory leaks
+    garglist = NULL;
+    garglist_size = 0;
+    clear_garglist = 0;
+  }
 
   int ix;
   int numwanted, numvargswanted, maxargs;
@@ -1500,5 +1510,17 @@ static char *get_game_id()
   buf[jx++] = '\0';
 
   return buf;
+}
+
+void git_glkop_c_shutdown()
+{
+  // Memory leaks for all!
+  arrays = NULL;
+  num_classes = 0;
+  clear_garglist = 1;
+  //garglist = NULL;
+  //garglist_size = 0;
+
+  git_classes = NULL;
 }
 

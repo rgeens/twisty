@@ -640,3 +640,19 @@ static glui32 func_13_op__pr(glui32 argc, glui32 *argv)
 
     return ((func_9_ra__pr(argc, argv)) ? 1 : 0);
 }
+
+void git_accel_c_shutdown()
+{
+  classes_table = 0;
+  indiv_prop_start = 0;
+  class_metaclass = 0;
+  object_metaclass = 0;
+  routine_metaclass = 0;
+  string_metaclass = 0;
+  self = 0;
+  num_attr_bytes = 0;
+  cpv__start = 0;
+
+  // Memory leak
+  accelentries = NULL;
+}
