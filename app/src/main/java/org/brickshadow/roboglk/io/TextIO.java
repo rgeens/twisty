@@ -78,14 +78,13 @@ public abstract class TextIO {
         listener = TextKeyListener.getInstance(false,
                 TextKeyListener.Capitalize.NONE);
         tb = new SpannableStringBuilder(" ");
-        
-        tv.setOnKeyListener(new View.OnKeyListener() {
-            
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                return onViewKey(v, keyCode, event);
-            }
-        });
+
+//        tv.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                return onViewKey(v, keyCode, event);
+//            }
+//        });
 
         // setOnScrollChangeListener is only available starting from API 23, so we use
         // setOnTouchListener with the ACTION_MOVE MotionEvent instead.
@@ -298,7 +297,7 @@ public abstract class TextIO {
         if (!charInput && !lineInput) {
             return true;
         }
-        
+
         if (tb.length() != 1) {
             tb = new SpannableStringBuilder(" ");
         }
@@ -306,7 +305,7 @@ public abstract class TextIO {
                 Selection.getSelectionStart(tb) != 1) {
             Selection.setSelection(tb, 1);
         }
-        
+
         switch (event.getAction()) {
         case KeyEvent.ACTION_DOWN:
             listener.onKeyDown(v, tb, keyCode, event);
@@ -315,7 +314,7 @@ public abstract class TextIO {
             listener.onKeyUp(v, tb, keyCode, event);
             break;
         }
-        
+
         if (charInput) {
             return processSingleKey(keyCode);
         } else {

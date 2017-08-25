@@ -20,6 +20,7 @@ package org.brickshadow.roboglk.view;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
@@ -34,6 +35,7 @@ public abstract class TextWindowView extends TextView {
 
     public TextWindowView(Context context) {
         super(context);
+        setInputType(InputType.TYPE_CLASS_TEXT);
         setText("", BufferType.EDITABLE);
         setBackgroundColor(Color.argb(0xFF, 0xFE, 0xFF, 0xCC)); // TODO: coordinate with prefs
         setTextColor(0xFF000000);		// TODO: coordinate with prefs
@@ -64,26 +66,26 @@ public abstract class TextWindowView extends TextView {
         return charsPerLine;
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-      return false;
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//      return false;
+//    }
+//
+//    @Override
+//    public boolean onCheckIsTextEditor() {
+//        int kbd = getContext().getResources().getConfiguration().keyboard;
+//        return (kbd != Configuration.KEYBOARD_QWERTY);
+//    }
 
-    @Override
-    public boolean onCheckIsTextEditor() {
-        int kbd = getContext().getResources().getConfiguration().keyboard;
-        return (kbd != Configuration.KEYBOARD_QWERTY);
-    }
-
-    @Override
-    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
-        int kbd = getContext().getResources().getConfiguration().keyboard;
-        if (kbd != Configuration.KEYBOARD_QWERTY) {
-            return new RoboInputConnection(this, false);
-        } else {
-            return null;
-        }
-    }
+//    @Override
+//    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
+//        int kbd = getContext().getResources().getConfiguration().keyboard;
+//        if (kbd != Configuration.KEYBOARD_QWERTY) {
+//            return new RoboInputConnection(this, false);
+//        } else {
+//            return null;
+//        }
+//    }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right,
