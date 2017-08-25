@@ -35,7 +35,7 @@ public abstract class TextWindowView extends TextView {
 
     public TextWindowView(Context context) {
         super(context);
-        setInputType(InputType.TYPE_CLASS_TEXT);
+        setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         setText("", BufferType.EDITABLE);
         setBackgroundColor(Color.argb(0xFF, 0xFE, 0xFF, 0xCC)); // TODO: coordinate with prefs
         setTextColor(0xFF000000);		// TODO: coordinate with prefs
@@ -86,6 +86,14 @@ public abstract class TextWindowView extends TextView {
 //            return null;
 //        }
 //    }
+
+    @Override
+    protected void onSelectionChanged(int selStart, int selEnd) {
+        // Strategy: override selection handling so that you can't select anything outside of what
+        // you've just typed. After hitting enter, update some state that keeps track of which length
+        // of the textview you can't select / edit.
+        super.onSelectionChanged(selStart, selEnd);
+    }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right,
